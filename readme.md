@@ -94,6 +94,8 @@ Optional parameters:
 
 ### MySQL Database
 
+#### Standard Authentication
+
 To use with a MySQL database:
 
 ```
@@ -110,6 +112,23 @@ Optional parameters:
 - `--password`: Password for MySQL authentication
 - `--ssl`: Enable SSL connection (true/false or object)
 - `--connection-timeout`: Connection timeout in milliseconds (default: 30000)
+
+#### AWS IAM Authentication
+
+For Amazon RDS MySQL instances with IAM database authentication:
+
+```
+node dist/src/index.js --mysql --aws-iam-auth --host <rds-endpoint> --database <database-name> --user <aws-username> --aws-region <region>
+```
+
+Required parameters:
+- `--host`: RDS endpoint hostname
+- `--database`: Name of the database
+- `--aws-iam-auth`: Enable AWS IAM authentication
+- `--user`: AWS IAM username (also the database user)
+- `--aws-region`: AWS region where RDS instance is located
+
+Note: SSL is automatically enabled for AWS IAM authentication
 
 ## Configuring Claude Desktop
 
@@ -164,6 +183,19 @@ If you installed the package globally, configure Claude Desktop with:
         "--user", "your-username",
         "--password", "your-password"
       ]
+    },
+    "mysql-aws": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/database-server",
+        "--mysql",
+        "--aws-iam-auth",
+        "--host", "your-rds-endpoint.region.rds.amazonaws.com",
+        "--database", "your-database-name",
+        "--user", "your-aws-username",
+        "--aws-region", "us-east-1"
+      ]
     }
   }
 }
@@ -215,6 +247,18 @@ For local development, configure Claude Desktop to use your locally built versio
         "--port", "3306",
         "--user", "your-username",
         "--password", "your-password"
+      ]
+    },
+    "mysql-aws": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/mcp-database-server/dist/src/index.js",
+        "--mysql",
+        "--aws-iam-auth",
+        "--host", "your-rds-endpoint.region.rds.amazonaws.com",
+        "--database", "your-database-name",
+        "--user", "your-aws-username",
+        "--aws-region", "us-east-1"
       ]
     }
   }
