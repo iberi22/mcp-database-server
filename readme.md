@@ -117,6 +117,14 @@ Optional parameters:
 
 For Amazon RDS MySQL instances with IAM database authentication:
 
+**Prerequisites:**
+- AWS credentials must be configured (the RDS Signer uses the default credential provider chain)
+- Configure using one of these methods:
+  - `aws configure` (uses default profile)
+  - `AWS_PROFILE=myprofile` environment variable
+  - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables
+  - IAM roles (if running on EC2)
+
 ```
 node dist/src/index.js --mysql --aws-iam-auth --host <rds-endpoint> --database <database-name> --user <aws-username> --aws-region <region>
 ```
