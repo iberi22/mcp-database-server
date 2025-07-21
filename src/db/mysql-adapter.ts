@@ -74,7 +74,7 @@ export class MysqlAdapter implements DbAdapter {
     }
     
     try {
-      console.error(`[INFO] Generating AWS auth token for region: ${this.awsRegion}, host: ${this.host}, user: ${this.config.user}`);
+      console.info(`[INFO] Generating AWS auth token for region: ${this.awsRegion}, host: ${this.host}, user: ${this.config.user}`);
       
       const signer = new Signer({
         region: this.awsRegion,
@@ -84,7 +84,7 @@ export class MysqlAdapter implements DbAdapter {
       });
       
       const token = await signer.getAuthToken();
-      console.error(`[INFO] AWS auth token generated successfully`);
+      console.info(`[INFO] AWS auth token generated successfully`);
       return token;
     } catch (err) {
       console.error(`[ERROR] Failed to generate AWS auth token: ${(err as Error).message}`);
@@ -97,11 +97,11 @@ export class MysqlAdapter implements DbAdapter {
    */
   async init(): Promise<void> {
     try {
-      console.error(`[INFO] Connecting to MySQL: ${this.host}, Database: ${this.database}`);
+      console.info(`[INFO] Connecting to MySQL: ${this.host}, Database: ${this.database}`);
       
       // Handle AWS IAM authentication
       if (this.awsIamAuth) {
-        console.error(`[INFO] Using AWS IAM authentication for user: ${this.config.user}`);
+        console.info(`[INFO] Using AWS IAM authentication for user: ${this.config.user}`);
         
         try {
           const authToken = await this.generateAwsAuthToken();
@@ -121,7 +121,7 @@ export class MysqlAdapter implements DbAdapter {
         this.connection = await mysql.createConnection(this.config);
       }
       
-      console.error(`[INFO] MySQL connection established successfully`);
+      console.info(`[INFO] MySQL connection established successfully`);
     } catch (err) {
       console.error(`[ERROR] MySQL connection error: ${(err as Error).message}`);
       if (this.awsIamAuth) {
