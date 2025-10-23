@@ -4,6 +4,10 @@
 
 This MCP (Model Context Protocol) server provides database access capabilities to Claude, supporting SQLite, SQL Server, PostgreSQL, and MySQL databases.
 
+## MySQL Connection Pooling (remote servers)
+
+This fork includes improvements for MySQL connections when connecting to remote hosting (for example, cPanel). The MySQL adapter now uses a connection pool (mysql2 createPool) with keep-alive and automatic reconnection logic to reduce "connection closed" errors from aggressive remote timeouts. If you run this server locally for your MCP agent, configure your MCP to use the built `dist/src/index.js` binary (use `node <path>` in your mcp.json) so it uses this fork's pooled adapter.
+
 ## Installation
 
 1. Clone the repository:
