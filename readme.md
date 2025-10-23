@@ -223,7 +223,7 @@ For local development, configure Claude Desktop to use your locally built versio
     "sqlite": {
       "command": "node",
       "args": [
-        "/absolute/path/to/mcp-database-server/dist/src/index.js", 
+        "/absolute/path/to/mcp-database-server/dist/src/index.js",
         "/path/to/your/database.db"
       ]
     },
